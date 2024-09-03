@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import Comment from "./Comment";
 import Reply from "./Reply";
 
@@ -24,16 +25,17 @@ interface PropsType {
     }[];
   };
   currentUser: string;
+  remove: (id: any) => void;
 }
 
-export default function Thread({ comment, currentUser }: PropsType) {
+export default function Thread({ comment, currentUser, remove }: PropsType) {
   const replies = comment?.replies.map((comment) => (
-    <Reply key={comment.id} comment={comment} currentUser={currentUser} />
+    <Reply key={comment.id} comment={comment} currentUser={currentUser} remove={remove} />
   ));
 
   return (
     <>
-      <Comment comment={comment} currentUser={currentUser} mention='' />
+      <Comment comment={comment} currentUser={currentUser} mention='' remove={remove} />
       <div className='border-l-2 pl-4 space-y-4 bg-veryLightGray'>{replies}</div>
     </>
   );
